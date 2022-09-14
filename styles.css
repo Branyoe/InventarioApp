@@ -1,0 +1,12 @@
+.bg-blue{
+  background-color: rgb(29, 29, 252);
+}
+
+.navbar{
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-inline{
+  display: flex;
+}

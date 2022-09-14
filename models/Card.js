@@ -10,25 +10,25 @@ export default class Card {
   subtitleCantidad = document.createElement("h6");
   subtitleCodigo = document.createElement("h6");
 
-  btnUpdate = document.createElement("a");
+  // btnUpdate = document.createElement("a");
   btnDelete = document.createElement("a");
 
   handleDelete = () => {};
   
   constructor(producto, handleDelete, handleUpdate) {
-    this.codigo = producto.codigo;
+    this.code = producto.codigo;
     this.nombre = producto.nombre;
     this.cantidad = producto.cantidad;
     this.costo = producto.costo;
-    this.btnDelete.addEventListener('click', () => handleDelete(this.codigo));
-    this.btnUpdate.addEventListener('click', () => handleUpdate(this.codigo, producto))
+    this.btnDelete.addEventListener('click', () => handleDelete(this.code));
+    // this.btnUpdate.addEventListener('click', () => handleUpdate(this.codigo, producto))
   }
 
   render() {
     this.divCard.classList.add('card', 'mb-3');
     this.divCard.setAttribute('style', 'width: 100%;');
     this.divCard.addEventListener('click', e => {
-      
+
     });
 
     this.cardBody.classList.add('card-body');
@@ -54,21 +54,18 @@ export default class Card {
       'mb-2',
       'text-muted'
     );
-    this.subtitleCodigo.innerHTML = `Código: ${this.codigo}`;
+    this.subtitleCodigo.innerHTML = `Código: ${this.code}`;
+    this.subtitleCodigo.setAttribute('id', 'codeLabel');
 
     this.btnDelete.classList.add('card-link', 'btn', 'btn-danger');
     this.btnDelete.textContent = 'Delete';
-    // this.btnDelete.addEventListener('click', () => this.handleDelete(this.codigo))
-    
-    this.btnUpdate.classList.add('card-link', 'btn', 'btn-primary');
-    this.btnUpdate.textContent = 'Update';
 
     this.cardBody.append(
       this.cardTitle,
       this.subtitleCantidad,
       this.subtitleCosto,
       this.subtitleCodigo,
-      this.btnUpdate,
+      // this.btnUpdate,
       this.btnDelete
     );
     this.divCard.append(this.cardBody);

@@ -4,48 +4,46 @@ import Producto from "./Producto.js";
 
 export default class Inventario {
   #products = [];
-  #cards = [];
-  #form = null;
-  #btnSubmit = null;
-  #cardsContainer = null;
+  #codeCounter = 1;
 
-  constructor(form, btnSubmit, cardsContainer) {
+  constructor() {
     this.#products = this.#products;
-    this.#cards = this.#cards;
-
-    this.#form = form;
-    this.#btnSubmit = btnSubmit;
-    this.#cardsContainer = cardsContainer;
-
-    this.#btnSubmit.addEventListener('click', event => {
-      event.preventDefault();
-
-      const newProduct = new Producto(this.#products.length + 1,this.#form.getValue);
-      this.add(newProduct);
-    });
   }
 
-  get listado() { return this.#products };
+  get getLastProduct() { return this.#products[this.#products.length - 1] }
+
+  get getList() { return this.#products };
+  get inveseList() {
+    let newList = [];
+    for (let i = array.length - 1; i >= 0; i--) {
+      const element = array[i];
+      newList.push(element);
+    }
+    return newList;
+  }
 
   add(product) {
-    // const newCard = new Card(product.getFullValue, (code) => this.delete(code), (code, newData) => this.update(code, newData)
-    // );
-
-    // this.#cards.push(newCard);
+    product.setCode(this.#codeCounter++);
     this.#products.push(product);
-    
-    this.#cardsContainer.prepend(newCard.render());
   }
 
   update(code, newData) {
-    this.#products[code - 1].setFromObj(newData);
+    this.#products[code - 1];
     console.log(this.#products[code - 1]);
   }
 
+  search(code) {
+    let foundProduct
+    Utilidades.for(this.#products, (product, i) => {
+      if(product.getCode === code) foundProduct = product;
+    });
+    return foundProduct;
+  }
+
   delete(code) {
-    this.#cards[code - 1].remove();
-    
-    this.#products = Utilidades.removeItemFromArray(code-1, this.#products);
-    this.#cards = Utilidades.removeItemFromArray(code-1, this.#cards);
+    Utilidades.for(this.#products, (product, i) => {
+      if(product.getCode === code)
+      this.#products = Utilidades.removeItemFromArray(i, this.#products);
+    })
   }
 }

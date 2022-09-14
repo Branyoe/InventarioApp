@@ -16,6 +16,12 @@ class Utilidades{
 
     return vecUpdated;
   }
+
+  static for(vector, callback){
+    for (let i = 0; i < vector.length; i++) {
+      callback(vector[i], i)
+    }
+  }
 }
 
 export default Utilidades;
