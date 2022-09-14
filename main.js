@@ -60,7 +60,7 @@ btnSearch.addEventListener('click', e => {
     if(card.code === foundProduct.getCode) foundCard = card;
   });
 
-  cardsContainer.prepend(cards[foundProduct.getCode - 1].render());
+  cardsContainer.prepend(foundCard.render());
 
   
 });
@@ -73,7 +73,7 @@ function cleanCardsContainer (){
 }
 
 function renderCards (){
-  Utilidades.for(cards, (card) => cardsContainer.append(card?.render()) );
+  Utilidades.for(cards, (card) => cardsContainer.prepend(card?.render()) );
 }
 
 const deleteProduct = (code) => {
