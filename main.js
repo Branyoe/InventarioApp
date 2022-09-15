@@ -2,12 +2,12 @@ import Alert from "./models/Alert.js";
 import Card from "./models/Card.js";
 import CardsManager from "./models/CardsManager.js";
 import Form from "./models/Form.js";
-import Inventario from "./models/Inventario.js";
+import Inventory from "./models/Inventory.js";
 import Product from "./models/Producto.js";
 import Utilidades from "./Utilidades.js";
 
 
-const inventary = new Inventario();
+const inventory = new Inventory();
 const addBtn = Utilidades.selector('btn-submit');
 const searchBtn = Utilidades.selector('btn-search');
 const searchInp = Utilidades.selector('search-inp');
@@ -24,10 +24,10 @@ addBtn.addEventListener('click', e => {
   e.preventDefault();
 
   const newProducto = new Product(form.getValue);
-  inventary.add(newProducto);
+  inventory.add(newProducto);
 
   const card = new Card(
-    inventary.getLastProduct,
+    inventory.getLastProduct,
     code => deleteProduct(code)
   )
   alert.remove();
@@ -41,7 +41,7 @@ searchBtn.addEventListener('click', e => {
   e.preventDefault();
 
   const searchedCode = Number(searchInp.value);
-  const foundProduct = inventary.search(searchedCode);
+  const foundProduct = inventory.search(searchedCode);
 
   cardsManager.cleanCardsContainer();
   alert.remove();
@@ -64,7 +64,7 @@ searchInp.addEventListener('input', e => {
 
 function deleteProduct(code) {
   cardsManager.removeCard(code);
-  inventary.delete(code);
+  inventory.delete(code);
 }
 
 
