@@ -4,11 +4,11 @@ export default class Producto {
   #cantidad = 0;
   #costo = 0;
 
-  constructor({nombre, cantidad, costo}) {
+  constructor({name, quantity, cost}) {
     this.#code = this.#code;
-    this.#nombre = nombre;
-    this.#cantidad = Number(cantidad);
-    this.#costo = Number(costo);
+    this.#nombre = name;
+    this.#cantidad = quantity;
+    this.#costo = cost;
   }
 
   //Pendiente al final

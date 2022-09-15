@@ -1,25 +1,25 @@
 export default class Form{
-  nombreInp = null;
-  cantidadInp = null;
-  costoInp = null;
+  #nameInp = null;
+  #quantityInp = null;
+  #costInp = null;
 
-  constructor(nombreInp, cantidadInp, costoInp){
-    this.nombreInp = nombreInp;
-    this.cantidadInp = cantidadInp;
-    this.costoInp = costoInp;
+  constructor(nameInp, quantityInp, costInp){
+    this.#nameInp = nameInp;
+    this.#quantityInp = quantityInp;
+    this.#costInp = costInp;
   }
 
   get getValue(){ 
     return {
-      nombre: this.nombreInp.value,
-      cantidad: this.cantidadInp.value,
-      costo: this.costoInp.value
+      name: this.#nameInp.value,
+      quantity: Number(this.#quantityInp.value),
+      cost: Number(this.#costInp.value)
     }
   }
 
   reset(){
-    this.nombreInp.value = '';
-    this.cantidadInp.value = '';
-    this.costoInp.value = '';
+    this.#nameInp.value = '';
+    this.#quantityInp.value = '';
+    this.#costInp.value = '';
   }
 }
