@@ -32,7 +32,7 @@ addBtn.addEventListener('click', e => {
   )
   alert.remove();
   cardsManager.add(card);
-  cardsManager.cleanCardsContainer();
+  cardsManager.removeCards();
   cardsManager.renderAllCards();
   form.reset();
 });
@@ -43,11 +43,11 @@ searchBtn.addEventListener('click', e => {
   const searchedCode = Number(searchInp.value);
   const foundProduct = inventory.search(searchedCode);
 
-  cardsManager.cleanCardsContainer();
+  cardsManager.removeCards();
   alert.remove();
 
   if (!foundProduct) {
-    cardsManager.cleanCardsContainer();
+    cardsManager.removeCards();
     cardsContainer.append(alert.render());
     return
   }
@@ -57,7 +57,7 @@ searchBtn.addEventListener('click', e => {
 searchInp.addEventListener('input', e => {
   if(searchInp.value.toString() === ''){
     alert.remove();
-    cardsManager.cleanCardsContainer();
+    cardsManager.removeCards();
     cardsManager.renderAllCards();
   }
 })
