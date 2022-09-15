@@ -15,8 +15,10 @@ export default class Product {
   }
 
   //getters
-  get getNombre() { return this.#name; }
   get getCode() { return this.#code; }
+  get getName() { return this.#name; }
+  get getQuantity() { return this.#quantity; }
+  get getCost() { return this.#cost; }
   get getValue() {
     return {
       code: this.#code,

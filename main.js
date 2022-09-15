@@ -27,7 +27,7 @@ addBtn.addEventListener('click', e => {
   inventary.add(newProducto);
 
   const card = new Card(
-    inventary.getLastProduct.getFullValue,
+    inventary.getLastProduct,
     code => deleteProduct(code)
   )
   alert.remove();

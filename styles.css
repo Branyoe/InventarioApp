@@ -10,3 +10,7 @@
 .form-inline{
   display: flex;
 }
+
+.card{
+  width: 100%;
+}
