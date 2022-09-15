@@ -1,16 +1,34 @@
-export default class Producto {
+export default class Product {
+  //********Propertys********
   #code = 0;
-  #nombre = "";
-  #cantidad = 0;
-  #costo = 0;
+  #name = "";
+  #quantity = 0;
+  #cost = 0;
 
+  
+  //********Methods********
   constructor({name, quantity, cost}) {
     this.#code = this.#code;
-    this.#nombre = name;
-    this.#cantidad = quantity;
-    this.#costo = cost;
+    this.#name = name;
+    this.#quantity = quantity;
+    this.#cost = cost;
   }
 
+  //getters
+  get getNombre() { return this.#name; }
+  get getCode() { return this.#code; }
+  get getValue() {
+    return {
+      code: this.#code,
+      name: this.#name,
+      quantity: this.#quantity,
+      cost: this.#cost
+    }
+  }
+
+  //setters
+  setCode = code => this.#code = code
+  
   //Pendiente al final
   // update({ nombre, cantidad, costo }) {
   //   this.#nombre = nombre;
@@ -18,17 +36,4 @@ export default class Producto {
   //   this.#costo = costo;
   // }
 
-  get getNombre() { return this.#nombre; }
-  get getCode() { return this.#code; }
-
-  get getFullValue() {
-    return {
-      codigo: this.#code,
-      nombre: this.#nombre,
-      cantidad: this.#cantidad,
-      costo: this.#costo
-    }
-  }
-
-  setCode = (code) => this.#code = code; 
 }

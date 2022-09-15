@@ -1,6 +1,6 @@
 import Utilidades from "../Utilidades.js";
 import Card from "./Card.js";
-import Producto from "./Producto.js";
+import Product from "./Producto.js";
 
 export default class Inventario {
   #products = [];

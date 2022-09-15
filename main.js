@@ -3,7 +3,7 @@ import Card from "./models/Card.js";
 import CardsManager from "./models/CardsManager.js";
 import Form from "./models/Form.js";
 import Inventario from "./models/Inventario.js";
-import Producto from "./models/Producto.js";
+import Product from "./models/Producto.js";
 import Utilidades from "./Utilidades.js";
 
 
@@ -23,7 +23,7 @@ const form = new Form(
 addBtn.addEventListener('click', e => {
   e.preventDefault();
 
-  const newProducto = new Producto(form.getValue);
+  const newProducto = new Product(form.getValue);
   inventary.add(newProducto);
 
   const card = new Card(
