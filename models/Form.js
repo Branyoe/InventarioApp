@@ -16,4 +16,10 @@ export default class Form{
       costo: this.costoInp.value
     }
   }
+
+  reset(){
+    this.nombreInp.value = '';
+    this.cantidadInp.value = '';
+    this.costoInp.value = '';
+  }
 }

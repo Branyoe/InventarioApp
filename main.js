@@ -1,97 +1,70 @@
-// const Inventario = require("./models/Inventario.js");
-// const Producto = require("./models/Producto");
 import Alert from "./models/Alert.js";
 import Card from "./models/Card.js";
+import CardsManager from "./models/CardsManager.js";
 import Form from "./models/Form.js";
 import Inventario from "./models/Inventario.js";
 import Producto from "./models/Producto.js";
 import Utilidades from "./Utilidades.js";
 
 
-const inventario = new Inventario();
-const btnSubmit = Utilidades.selector('btn-submit');
+const inventary = new Inventario();
+const addBtn = Utilidades.selector('btn-submit');
+const searchBtn = Utilidades.selector('btn-search');
+const searchInp = Utilidades.selector('search-inp');
 const cardsContainer = Utilidades.selector('cardsContainer');
-const btnSearch = Utilidades.selector('btn-search');
+const cardsManager = new CardsManager(cardsContainer);
+const alert = new Alert('No existen resultados')
 const form = new Form(
   Utilidades.selector('nombre'),
   Utilidades.selector('cantidad'),
   Utilidades.selector('costo')
 );
 
-let cards = [];
+addBtn.addEventListener('click', e => {
+  e.preventDefault();
 
-btnSubmit.addEventListener('click', e => {
   const newProducto = new Producto(form.getValue);
-  inventario.add(newProducto);
+  inventary.add(newProducto);
 
   const card = new Card(
-    inventario.getLastProduct.getFullValue,
-    (code) => deleteProduct(code),
-    () => {}
+    inventary.getLastProduct.getFullValue,
+    code => deleteProduct(code)
   )
-  cards.push(card);
-
-  cleanCardsContainer();
-  renderCards();
-  console.log(cards);
-  console.log(inventario.getList);
+  alert.remove();
+  cardsManager.add(card);
+  cardsManager.cleanCardsContainer();
+  cardsManager.renderAllCards();
+  form.reset();
 });
 
-const alert = new Alert('No existen resultados')
-
-btnSearch.addEventListener('click', e => {
+searchBtn.addEventListener('click', e => {
   e.preventDefault();
-  // console.log(cards);
-  // console.log(inventario.getList);
 
-  let searchedCode = Number(Utilidades.selector('search-inp').value);
-  const foundProduct = inventario.search(searchedCode);
-  
-  cleanCardsContainer()
+  const searchedCode = Number(searchInp.value);
+  const foundProduct = inventary.search(searchedCode);
 
-  if(!foundProduct) {
-    cleanCardsContainer()
+  cardsManager.cleanCardsContainer();
+  alert.remove();
+
+  if (!foundProduct) {
+    cardsManager.cleanCardsContainer();
     cardsContainer.append(alert.render());
     return
   }
-
-  let foundCard
-  Utilidades.for(cards, card => {
-    if(card.code === foundProduct.getCode) foundCard = card;
-  });
-
-  cardsContainer.prepend(foundCard.render());
-
-  
+  cardsManager.renderCard(foundProduct.getCode);
 });
 
-function cleanCardsContainer (){
-  Utilidades.for(cards, (card) => {
-    card?.remove();
-  });
-  Utilidades.selector('alert')?.remove();
+searchInp.addEventListener('input', e => {
+  if(searchInp.value.toString() === ''){
+    alert.remove();
+    cardsManager.cleanCardsContainer();
+    cardsManager.renderAllCards();
+  }
+})
+
+function deleteProduct(code) {
+  cardsManager.removeCard(code);
+  inventary.delete(code);
 }
-
-function renderCards (){
-  Utilidades.for(cards, (card) => cardsContainer.prepend(card?.render()) );
-}
-
-const deleteProduct = (code) => {
-  Utilidades.for(cards, (card, i) => {
-    if(card.code === code){
-      card.remove();
-      cards = Utilidades.removeItemFromArray(i, cards);
-    }
-  })
-  inventario.delete(code);
-  console.log(cards);
-  console.log(inventario.getList);
-}
-
-//Pendiente al final
-// const updateProduct = (code, newData = {}) => {
-  
-// }
-
 
 

@@ -15,7 +15,7 @@ export default class Card {
 
   handleDelete = () => {};
   
-  constructor(producto, handleDelete, handleUpdate) {
+  constructor(producto, handleDelete) {
     this.code = producto.codigo;
     this.nombre = producto.nombre;
     this.cantidad = producto.cantidad;
