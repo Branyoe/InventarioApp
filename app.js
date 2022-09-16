@@ -134,3 +134,75 @@ function setSaveBtnMode(isUpdate) {
   saveBtn.classList.add('btn-primary');
 }
 
+// //************ConsoleTest************
+
+// const inventory = new Inventory();
+
+// const product1 = new Product({
+//   //el codigo es asignado automaticamente por el Inventory para evitar la duplicidad de este.
+//   name: 'p1',
+//   quantity: 1,
+//   cost: 1
+// })
+// const product2 = new Product({
+//   name: 'p2',
+//   quantity: 2,
+//   cost: 2
+// });
+
+// //no product case
+// console.log('no product case\n');
+// console.log(inventory.getList);
+// console.log(inventory.getInvertedList);
+
+// //one product case
+// console.log('one product case\n');
+// inventory.add(product1);
+// console.log(inventory.getList);
+// console.log(inventory.getInvertedList);
+// console.log(inventory.search(1));
+
+// //two products case
+// console.log('two products case\n');
+// inventory.add(product2);
+// console.log(inventory.getList);
+// console.log(inventory.getInvertedList);
+// console.log(inventory.search(1));
+// console.log(inventory.search(2));
+
+// //Update product case
+// console.log('Update product case\n');
+// inventory.update(1, {
+//   name: 'product1',
+//   quantity: 1,
+//   cost: 1
+// });
+// console.log(inventory.getList);
+// console.log(inventory.getInvertedList);
+// console.log(inventory.search(1));
+
+// //delete product case
+// console.log('delete product case\n');
+// console.log(inventory.getList);
+// console.log(inventory.getInvertedList);
+// inventory.delete(1);
+// console.log(inventory.getList);
+// console.log(inventory.getInvertedList);
+// console.log(inventory.search(1)); //now is non-existent
+// console.log(inventory.search(2));
+
+// //delete non-existent product case
+// console.log('delete non-existent product case\n');
+// inventory.delete(1);
+// console.log(inventory.getList);
+// console.log(inventory.getInvertedList);
+
+// //Update non-existent product case
+// console.log('update non-existent product case\n');
+// inventory.update(1, {
+//   name: 'p1',
+//   quantity: 1,
+//   cost: 1
+// });
+// console.log(inventory.getList);
+// console.log(inventory.getInvertedList);

@@ -19,7 +19,7 @@ export default class Inventory {
 
   update(code, newValue) {
     const foundProduct = this.search(code);
-    foundProduct.update(newValue);
+    foundProduct?.update(newValue);
   }
 
   search(code) {
@@ -51,6 +51,7 @@ export default class Inventory {
   }
 
   #productsListToString(productsList = []){
+    if(this.#products.length === 0) return '[]'
     let stringList = '[';
     for (let i = 0; i < productsList.length - 1; i++) {
       stringList += productsList[i]?.getValueInString + ', ';
