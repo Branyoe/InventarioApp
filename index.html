@@ -26,7 +26,7 @@
       </div>
     </div>
   </div>
-  <div id="app" class="">
+  <div id="app">
     <div class="container-fluid">
       <nav class="navbar">
         <h1 class="m-3">Inventory</h1>
@@ -59,10 +59,17 @@
           <div class="col-2"></div>
           <div class="col-5">
             <h5>Products</h5>
-            <form class="d-flex mb-4" role="search">
-              <input id="search-inp" class="form-control me-2" type="number" placeholder="code" aria-label="Search">
-              <button id="btn-search" class="btn btn-outline-success" type="search">Search</button>
-            </form>
+            <div class="searchContainer">
+              <form class="d-flex gap-2" role="search">
+                <input id="search-inp" class="form-control" type="number" placeholder="code" aria-label="Search">
+                <button id="btn-search" class="btn btn-outline-success" type="search">Search</button>
+              </form>
+              <div class="filterContainer gap-2 mt-2 mb-4">
+                <div id="sort-btn" class="filterItm">
+                  <img src="assets/bx-sort.svg">
+                </div>
+              </div>
+            </div>
             <div id="cardsContainer">
             </div>
           </div>

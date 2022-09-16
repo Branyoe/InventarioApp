@@ -31,3 +31,26 @@
   position: fixed;
   transform: translate(20px, 75vh);
 }
+
+.filterContainer{
+  display: block;
+  display: flex;
+  justify-content: end;
+}
+
+.filterItm{
+  border-radius: 5px;
+  outline: solid 1px #ced4da;
+}
+
+.filterItm:hover{
+  outline: solid 2px #ced4da;
+}
+
+.filterItmSelected{
+  background: #ced4da;
+}
+
+.toast-body{
+  background-color:  #e9ecef;
+}

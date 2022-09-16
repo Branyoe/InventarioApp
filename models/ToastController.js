@@ -1,4 +1,5 @@
 export default class ToastController{
+  //********Methods********
   constructor(element){
     this.element = element;
     this.actionSpan = this.element.querySelector('#action');
@@ -9,6 +10,9 @@ export default class ToastController{
     this.toast = new bootstrap.Toast(this.element);
   }
 
+  show = () => this.toast.show();
+  
+  //setters
   set({action, code, name, quantity, cost}){
     this.actionSpan.innerHTML = action;
     this.codeSpan.innerHTML = code;
@@ -17,5 +21,4 @@ export default class ToastController{
     this.costSpan.innerHTML = cost;
   }
 
-  show = () => this.toast.show();
 }

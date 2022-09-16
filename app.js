@@ -8,30 +8,25 @@ import ToastController from "./models/ToastController.js";
 import Utilidades from "./Utilidades.js";
 
 
-const inventory = new Inventory();
-const saveBtn = Utilidades.selector('btn-submit');
-const searchBtn = Utilidades.selector('btn-search');
-const searchInp = Utilidades.selector('search-inp');
+const alert = new Alert('No existen resultados')
 const cardsContainer = Utilidades.selector('cardsContainer');
 const cardsManager = new CardsManager(cardsContainer);
-const alert = new Alert('No existen resultados')
 const form = new Form(
   Utilidades.selector('nameInp'),
   Utilidades.selector('quantityInp'),
   Utilidades.selector('costInp')
 );
-const toast = document.getElementById('liveToast');
+const inventory = new Inventory();
+const saveBtn = Utilidades.selector('btn-submit');
+const searchBtn = Utilidades.selector('btn-search');
+const searchInp = Utilidades.selector('search-inp');
+const toast = Utilidades.selector('liveToast');
 const toastComponent = new ToastController(toast);
-// const toastComponent = {
-//   action: Utilidades.selector('action'),
-//   code: Utilidades.selector('code'),
-//   name: Utilidades.selector('name'),
-//   quantity: Utilidades.selector('quantity'),
-//   cost: Utilidades.selector('cost')
-// }
+const sortBtn = Utilidades.selector('sort-btn')
 
 let codeForUpdate = 0;
 let updateFlag = false;
+let isShortUp = true;
 
 saveBtn.addEventListener('click', e => {
   e.preventDefault();
@@ -41,6 +36,9 @@ saveBtn.addEventListener('click', e => {
   } else {
     saveBtnHandleUpdate();
   }
+  alert.remove();
+  cardsManager.renderCards();
+  form.reset();
 });
 
 searchBtn.addEventListener('click', e => {
@@ -49,7 +47,6 @@ searchBtn.addEventListener('click', e => {
   const searchedCode = Number(searchInp.value);
   const foundProduct = inventory.search(searchedCode);
 
-  cardsManager.removeCards();
   alert.remove();
 
   if (!foundProduct) {
@@ -60,7 +57,20 @@ searchBtn.addEventListener('click', e => {
   cardsManager.renderCard(foundProduct.getCode);
 });
 
-searchInp.addEventListener('input', e => {
+sortBtn.addEventListener('click', e => {
+  e.preventDefault();
+
+  isShortUp = !isShortUp;
+  if (!isShortUp) {
+    sortBtn.classList.add('filterItmSelected');
+    cardsManager.renderInvertedCards();
+  } else {
+    sortBtn.classList.remove('filterItmSelected');
+    cardsManager.renderCards();
+  }
+})
+
+searchInp.addEventListener('input', () => {
   if (searchInp.value.toString() === '') {
     alert.remove();
     cardsManager.removeCards();
@@ -74,7 +84,7 @@ function deleteProduct(code) {
     ...inventory.search(code).getValue
   })
   toastComponent.show();
-  cardsManager.removeCard(code);
+  cardsManager.deleteCard(code);
   inventory.delete(code);
 }
 
@@ -88,8 +98,6 @@ function updateProduct(code) {
 function saveBtnHandleUpdate() {
   inventory.update(codeForUpdate, form.getValue);
   cardsManager.update(codeForUpdate, form.getValue);
-  cardsManager.rerenderCards();
-  form.reset();
   toastComponent.set({
     action: 'Updated Product',
     ...inventory.search(codeForUpdate).getValue
@@ -108,10 +116,7 @@ function saveBtnHandleAdd() {
     code => deleteProduct(code),
     code => updateProduct(code)
   )
-  alert.remove();
   cardsManager.add(card);
-  cardsManager.rerenderCards();
-  form.reset();
   toastComponent.set({
     action: 'Added Product',
     ...newProducto.getValue
@@ -119,8 +124,8 @@ function saveBtnHandleAdd() {
   toastComponent.show();
 }
 
-function setSaveBtnMode(isUpdate){
-  if(isUpdate){
+function setSaveBtnMode(isUpdate) {
+  if (isUpdate) {
     saveBtn.classList.add('btn-success');
     saveBtn.classList.remove('btn-primary');
     return

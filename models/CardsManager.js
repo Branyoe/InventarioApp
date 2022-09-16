@@ -14,34 +14,39 @@ export default class CardsManager {
     this.cardsContainer.prepend(card.render());
   }
 
-  search(code){
-    for (let i = 0; i < this.#cards.length; i++) {
-      if(this.#cards[i].code === code) return this.#cards[i];
-    }
+  search(code) {
+    let foundCard, i = 0;
+    do {
+      if (this.#cards[i].code === code) foundCard = this.#cards[i];
+      i++;
+    } while (!foundCard && i < this.#cards.length)
+    return foundCard;
   }
 
   update(code, newValue) {
     this.search(code).update(newValue);
   }
 
-  renderCards = () => Utilidades.for(this.#cards, card => this.cardsContainer.prepend(card?.render()))
-
-  renderCard(code) {
-    Utilidades.for(this.#cards, card => {
-      if (card.code === code) this.cardsContainer.append(card?.render());
-    });
+  renderCards() {
+    this.removeCards();
+    Utilidades.for(this.#cards, card => this.cardsContainer.prepend(card?.render()));
   }
 
-  rerenderCards() {
+  renderInvertedCards() {
     this.removeCards();
-    this.renderCards();
+    Utilidades.for(this.#cards, card => this.cardsContainer.append(card?.render()));
+  }
+
+  renderCard(code) {
+    this.removeCards();
+    this.cardsContainer.append(this.search(code).render());
   }
 
   removeCards() {
     Utilidades.for(this.#cards, (card) => card?.remove());
   }
 
-  removeCard(code) {
+  deleteCard(code) {
     Utilidades.for(this.#cards, (card, i) => {
       if (card.code === code) {
         card.remove();

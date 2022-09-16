@@ -23,18 +23,23 @@ export default class Inventory {
   }
 
   search(code) {
-    let foundProduct
-    Utilidades.for(this.#products, product => {
-      if (product.getCode === code) foundProduct = product;
-    });
-
+    let foundProduct, i = 0;
+    do{
+      if (this.#products[i]?.getCode === code) foundProduct = this.#products[i];
+      i++;
+    }while(!foundProduct && i < this.#products.length);
     return foundProduct;
   }
 
   delete(code) {
-    Utilidades.for(this.#products, (product, i) => {
-      if (product.getCode === code) this.#products = Utilidades.removeItemFromArray(i, this.#products);
-    })
+    let i = 0, deleted = false;
+    do{
+      if (this.#products[i].getCode === code) {
+        this.#products = Utilidades.removeItemFromArray(i, this.#products);
+        deleted = true;
+      }
+      i++;
+    }while(!deleted && i < this.#products.length);
   }
 
   insert(product, index) {
