@@ -5,10 +5,16 @@ export default class Product {
   #quantity = 0;
   #cost = 0;
 
-  
+
   //********Methods********
-  constructor({name, quantity, cost}) {
+  constructor({ name, quantity, cost }) {
     this.#code = this.#code;
+    this.#name = name;
+    this.#quantity = quantity;
+    this.#cost = cost;
+  }
+
+  update({name, quantity, cost}) {
     this.#name = name;
     this.#quantity = quantity;
     this.#cost = cost;
@@ -27,15 +33,11 @@ export default class Product {
       cost: this.#cost
     }
   }
+  get getValueInString() { return `{code: ${this.#code}, name: ${this.#name == "" ? '""' : this.#name}, quantity: ${this.#quantity}, cost: ${this.#cost}}` }
 
   //setters
-  setCode = code => this.#code = code
-  
-  //Pendiente al final
-  // update({ nombre, cantidad, costo }) {
-  //   this.#nombre = nombre;
-  //   this.#cantidad = cantidad;
-  //   this.#costo = costo;
-  // }
-
+  setCode = code => this.#code = code;
+  setName = name => this.#name = name;
+  setQuantity = quantity => this.#quantity = quantity;
+  setCost = cost => this.#cost = cost;
 }

@@ -17,9 +17,9 @@ export default class Inventory {
     this.#products.push(product);
   }
 
-  update(code, newData) {
-    this.#products[code - 1];
-    console.log(this.#products[code - 1]);
+  update(code, newValue) {
+    const foundProduct = this.search(code);
+    foundProduct.update(newValue);
   }
 
   search(code) {
@@ -47,26 +47,16 @@ export default class Inventory {
 
   //getters
   get getLastProduct() { return this.#products[this.#products.length - 1] }
-  get getList() { return this.#products };
+
+  get getList() {
+    return Utilidades.productsListToString(this.#products);
+  };
 
   get getInvertedList() {
     let invertedList = [];
     for (let i = this.#products.length - 1; i >= 0; i--) {
-      const element = this.#products[i];
-      invertedList.push(element);
+      invertedList.push(this.#products[i]);
     }
-    return invertedList;
-  }
-
-  get getListInString() {
-    if(this.#products.length === 0) return '';
-    let listInString = '[';
-    for (let i = 0; i < this.#products.length - 1; i++) {
-      const product = this.#products[i];
-      listInString += JSON.stringify(product.getValue) + ', ';
-    }
-    listInString += JSON.stringify(this.getLastProduct.getValue) + ']';
-
-    return listInString;
+    return Utilidades.productsListToString(invertedList);
   }
 }

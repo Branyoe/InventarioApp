@@ -14,3 +14,20 @@
 .card{
   width: 100%;
 }
+
+.buttonsContainer{
+  display: flex;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.normal{
+  font-weight: normal;
+}
+
+.toast{
+  position: fixed;
+  transform: translate(20px, 75vh);
+}

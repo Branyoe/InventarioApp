@@ -22,6 +22,14 @@ class Utilidades{
       callback(vector[i], i)
     }
   }
+
+  static productsListToString(productsList = []){
+    let stringList = '[';
+    for (let i = 0; i < productsList.length - 1; i++) {
+      stringList += productsList[i]?.getValueInString + ', ';
+    }
+    return stringList += productsList[productsList.length - 1]?.getValueInString + ']';
+  }
 }
 
 export default Utilidades;

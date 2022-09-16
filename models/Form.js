@@ -20,10 +20,16 @@ export default class Form{
   //getters
   get getValue(){ 
     return {
-      name: this.#nameInp.value,
+      name: String(this.#nameInp.value),
       quantity: Number(this.#quantityInp.value),
       cost: Number(this.#costInp.value)
     }
   }
 
+  //setters
+  setValue(product){
+    this.#nameInp.value = product.getName;
+    this.#quantityInp.value = product.getQuantity;
+    this.#costInp.value = product.getCost;
+  }
 }

@@ -14,12 +14,27 @@ export default class CardsManager {
     this.cardsContainer.prepend(card.render());
   }
 
-  renderAllCards = () => Utilidades.for(this.#cards, card => this.cardsContainer.prepend(card?.render()))
+  search(code){
+    for (let i = 0; i < this.#cards.length; i++) {
+      if(this.#cards[i].code === code) return this.#cards[i];
+    }
+  }
+
+  update(code, newValue) {
+    this.search(code).update(newValue);
+  }
+
+  renderCards = () => Utilidades.for(this.#cards, card => this.cardsContainer.prepend(card?.render()))
 
   renderCard(code) {
     Utilidades.for(this.#cards, card => {
       if (card.code === code) this.cardsContainer.append(card?.render());
     });
+  }
+
+  rerenderCards() {
+    this.removeCards();
+    this.renderCards();
   }
 
   removeCards() {
