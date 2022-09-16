@@ -1,4 +1,4 @@
-import Utilidades from "../Utilidades.js";
+import Utils from "../Utils.js";
 
 export default class Inventory {
   //********Propertys********
@@ -35,7 +35,7 @@ export default class Inventory {
     let i = 0, deleted = false;
     do{
       if (this.#products[i].getCode === code) {
-        this.#products = Utilidades.removeItemFromArray(i, this.#products);
+        this.#products = Utils.removeItemFromArray(i, this.#products);
         deleted = true;
       }
       i++;
@@ -50,11 +50,19 @@ export default class Inventory {
     this.#products[index] = product;
   }
 
+  #productsListToString(productsList = []){
+    let stringList = '[';
+    for (let i = 0; i < productsList.length - 1; i++) {
+      stringList += productsList[i]?.getValueInString + ', ';
+    }
+    return stringList += productsList[productsList.length - 1]?.getValueInString + ']';
+  }
+
   //getters
   get getLastProduct() { return this.#products[this.#products.length - 1] }
 
   get getList() {
-    return Utilidades.productsListToString(this.#products);
+    return this.#productsListToString(this.#products);
   };
 
   get getInvertedList() {
@@ -62,6 +70,6 @@ export default class Inventory {
     for (let i = this.#products.length - 1; i >= 0; i--) {
       invertedList.push(this.#products[i]);
     }
-    return Utilidades.productsListToString(invertedList);
+    return this.#productsListToString(invertedList);
   }
 }

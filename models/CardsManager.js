@@ -1,4 +1,4 @@
-import Utilidades from "../Utilidades.js";
+import Utils from "../Utils.js";
 
 export default class CardsManager {
   //********Propertys********
@@ -29,12 +29,12 @@ export default class CardsManager {
 
   renderCards() {
     this.removeCards();
-    Utilidades.for(this.#cards, card => this.cardsContainer.prepend(card?.render()));
+    Utils.for(this.#cards, card => this.cardsContainer.prepend(card?.render()));
   }
 
   renderInvertedCards() {
     this.removeCards();
-    Utilidades.for(this.#cards, card => this.cardsContainer.append(card?.render()));
+    Utils.for(this.#cards, card => this.cardsContainer.append(card?.render()));
   }
 
   renderCard(code) {
@@ -43,14 +43,14 @@ export default class CardsManager {
   }
 
   removeCards() {
-    Utilidades.for(this.#cards, (card) => card?.remove());
+    Utils.for(this.#cards, (card) => card?.remove());
   }
 
   deleteCard(code) {
-    Utilidades.for(this.#cards, (card, i) => {
+    Utils.for(this.#cards, (card, i) => {
       if (card.code === code) {
         card.remove();
-        this.#cards = Utilidades.removeItemFromArray(i, this.#cards);
+        this.#cards = Utils.removeItemFromArray(i, this.#cards);
       }
     })
   }

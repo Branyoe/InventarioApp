@@ -3,26 +3,26 @@ import Card from "./models/Card.js";
 import CardsManager from "./models/CardsManager.js";
 import Form from "./models/Form.js";
 import Inventory from "./models/Inventory.js";
-import Product from "./models/Producto.js";
+import Product from "./models/Product.js";
 import ToastController from "./models/ToastController.js";
-import Utilidades from "./Utilidades.js";
+import Utils from "./Utils.js";
 
 
 const alert = new Alert('No existen resultados')
-const cardsContainer = Utilidades.selector('cardsContainer');
+const cardsContainer = Utils.selector('cardsContainer');
 const cardsManager = new CardsManager(cardsContainer);
 const form = new Form(
-  Utilidades.selector('nameInp'),
-  Utilidades.selector('quantityInp'),
-  Utilidades.selector('costInp')
+  Utils.selector('nameInp'),
+  Utils.selector('quantityInp'),
+  Utils.selector('costInp')
 );
 const inventory = new Inventory();
-const saveBtn = Utilidades.selector('btn-submit');
-const searchBtn = Utilidades.selector('btn-search');
-const searchInp = Utilidades.selector('search-inp');
-const toast = Utilidades.selector('liveToast');
+const saveBtn = Utils.selector('btn-submit');
+const searchBtn = Utils.selector('btn-search');
+const searchInp = Utils.selector('search-inp');
+const toast = Utils.selector('liveToast');
 const toastComponent = new ToastController(toast);
-const sortBtn = Utilidades.selector('sort-btn')
+const sortBtn = Utils.selector('sort-btn')
 
 let codeForUpdate = 0;
 let updateFlag = false;
