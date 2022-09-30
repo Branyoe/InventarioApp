@@ -7,8 +7,8 @@ export default class Product {
 
 
   //********Methods********
-  constructor({ name, quantity, cost }) {
-    this.#code = this.#code;
+  constructor({ code, name, quantity, cost }) {
+    this.#code = code;
     this.#name = name;
     this.#quantity = quantity;
     this.#cost = cost;
@@ -36,7 +36,6 @@ export default class Product {
   get getValueInString() { return `{code: ${this.#code}, name: ${this.#name == "" ? '""' : this.#name}, quantity: ${this.#quantity}, cost: ${this.#cost}}` }
 
   //setters
-  setCode = code => this.#code = code;
   setName = name => this.#name = name;
   setQuantity = quantity => this.#quantity = quantity;
   setCost = cost => this.#cost = cost;

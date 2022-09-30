@@ -10,8 +10,22 @@ export default class CardsManager {
   }
 
   add(card) {
-    this.#cards.push(card);
-    this.cardsContainer.prepend(card.render());
+    let indexForInsert;
+    if (!this.#cards.length) {
+      this.#cards.push(card);
+    } else {
+      indexForInsert = Utils.binarySearchForInsertCard(this.#cards, card.code);
+      this.insert(card, indexForInsert + 1);
+    }
+    console.log(this.#cards);
+  }
+
+  insert(card, index) {
+    this.#cards.length += 1;
+    for (let i = this.#cards.length - 1; i >= index; i--) {
+      this.#cards[i] = this.#cards[i - 1];
+    }
+    this.#cards[index] = card;
   }
 
   search(code) {
@@ -28,6 +42,7 @@ export default class CardsManager {
   }
 
   renderCards() {
+    if(this.ca)
     this.removeCards();
     Utils.for(this.#cards, card => this.cardsContainer.prepend(card?.render()));
   }

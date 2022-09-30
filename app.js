@@ -12,9 +12,13 @@ const alert = new Alert('No existen resultados')
 const cardsContainer = Utils.selector('cardsContainer');
 const cardsManager = new CardsManager(cardsContainer);
 const form = new Form(
+  Utils.selector('codeInp'),
   Utils.selector('nameInp'),
   Utils.selector('quantityInp'),
-  Utils.selector('costInp')
+  Utils.selector('costInp'),
+  {
+    codeHelper: Utils.selector('codeHelper')
+  }
 );
 const inventory = new Inventory();
 const saveBtn = Utils.selector('btn-submit');
@@ -46,7 +50,6 @@ searchBtn.addEventListener('click', e => {
 
   const searchedCode = Number(searchInp.value);
   const foundProduct = inventory.search(searchedCode);
-
   alert.remove();
 
   if (!foundProduct) {
@@ -108,11 +111,16 @@ function saveBtnHandleUpdate() {
 }
 
 function saveBtnHandleAdd() {
+  if(inventory.search(form.getValue.code)) {
+    form.showCodeHelper(true);
+    return;
+  }
+  form.showCodeHelper(false);
   const newProducto = new Product(form.getValue);
   inventory.add(newProducto);
 
   const card = new Card(
-    inventory.getLastProduct,
+    newProducto,
     code => deleteProduct(code),
     code => updateProduct(code)
   )
@@ -128,10 +136,12 @@ function setSaveBtnMode(isUpdate) {
   if (isUpdate) {
     saveBtn.classList.add('btn-success');
     saveBtn.classList.remove('btn-primary');
+    form.enableCodeInp(false);
     return
   }
   saveBtn.classList.remove('btn-success');
   saveBtn.classList.add('btn-primary');
+  form.enableCodeInp(true);
 }
 
 // //************ConsoleTest************

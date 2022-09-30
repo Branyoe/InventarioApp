@@ -3,18 +3,21 @@ import Utils from "../Utils.js";
 export default class Inventory {
   //********Propertys********
   #products = null;
-  #codeCounter = 0;
 
   //********Methods********
   constructor() {
     this.#products = [];
-    this.#codeCounter = 1;
   }
 
-
   add(product) {
-    product.setCode(this.#codeCounter++);
-    this.#products.push(product);
+    let indexForInsert;
+    if (!this.#products.length) {
+      this.#products.push(product);
+    } else {
+      indexForInsert = Utils.binarySearchForInsertProduct(this.#products, product.getCode);
+      this.insert(product, indexForInsert + 1);
+    }
+    console.log(this.#products);
   }
 
   update(code, newValue) {
@@ -24,22 +27,22 @@ export default class Inventory {
 
   search(code) {
     let foundProduct, i = 0;
-    do{
+    do {
       if (this.#products[i]?.getCode === code) foundProduct = this.#products[i];
       i++;
-    }while(!foundProduct && i < this.#products.length);
+    } while (!foundProduct && i < this.#products.length);
     return foundProduct;
   }
 
   delete(code) {
     let i = 0, deleted = false;
-    do{
+    do {
       if (this.#products[i].getCode === code) {
         this.#products = Utils.removeItemFromArray(i, this.#products);
         deleted = true;
       }
       i++;
-    }while(!deleted && i < this.#products.length);
+    } while (!deleted && i < this.#products.length);
   }
 
   insert(product, index) {
@@ -50,8 +53,8 @@ export default class Inventory {
     this.#products[index] = product;
   }
 
-  #productsListToString(productsList = []){
-    if(this.#products.length === 0) return '[]'
+  #productsListToString(productsList = []) {
+    if (this.#products.length === 0) return '[]'
     let stringList = '[';
     for (let i = 0; i < productsList.length - 1; i++) {
       stringList += productsList[i]?.getValueInString + ', ';
@@ -65,6 +68,8 @@ export default class Inventory {
   get getList() {
     return this.#productsListToString(this.#products);
   };
+
+  get getProducts() { return this.#products };
 
   get getInvertedList() {
     let invertedList = [];
