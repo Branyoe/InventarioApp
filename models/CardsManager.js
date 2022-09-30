@@ -17,7 +17,6 @@ export default class CardsManager {
       indexForInsert = Utils.binarySearchForInsertCard(this.#cards, card.code);
       this.insert(card, indexForInsert + 1);
     }
-    console.log(this.#cards);
   }
 
   insert(card, index) {
@@ -29,12 +28,16 @@ export default class CardsManager {
   }
 
   search(code) {
-    let foundCard, i = 0;
-    do {
-      if (this.#cards[i].code === code) foundCard = this.#cards[i];
-      i++;
-    } while (!foundCard && i < this.#cards.length)
-    return foundCard;
+    // let foundCard, i = 0;
+    // do {
+    //   if (this.#cards[i].code === code) foundCard = this.#cards[i];
+    //   i++;
+    // } while (!foundCard && i < this.#cards.length)
+    // return foundCard;
+
+    if(this.#cards.length == 0) return;
+    let foundIndex = this.#binarySearchForACard(code);
+    return this.#cards[foundIndex];
   }
 
   update(code, newValue) {
@@ -68,6 +71,19 @@ export default class CardsManager {
         this.#cards = Utils.removeItemFromArray(i, this.#cards);
       }
     })
+  }
+
+  #binarySearchForACard( wantedCode, start = 0, end = this.#cards.length - 1) {
+    if (wantedCode > this.#cards[end].code || wantedCode < this.#cards[start].code) return;
+    if (start > end) return;
+    let middle = Math.floor((start + end) / 2);
+    if (wantedCode === this.#cards[middle].code) {
+      return middle;
+    } else if (wantedCode > this.#cards[middle].code) {
+      return this.#binarySearchForACard(wantedCode, middle + 1, end);
+    } else {
+      return this.#binarySearchForACard(wantedCode, start, middle - 1);
+    }
   }
 
   //getters

@@ -17,7 +17,6 @@ export default class Inventory {
       indexForInsert = Utils.binarySearchForInsertProduct(this.#products, product.getCode);
       this.insert(product, indexForInsert + 1);
     }
-    console.log(this.#products);
   }
 
   update(code, newValue) {
@@ -26,12 +25,16 @@ export default class Inventory {
   }
 
   search(code) {
-    let foundProduct, i = 0;
-    do {
-      if (this.#products[i]?.getCode === code) foundProduct = this.#products[i];
-      i++;
-    } while (!foundProduct && i < this.#products.length);
-    return foundProduct;
+    // let foundProduct, i = 0;
+    // do {
+    //   if (this.#products[i]?.getCode === code) foundProduct = this.#products[i];
+    //   i++;
+    // } while (!foundProduct && i < this.#products.length);
+    // return foundProduct;
+
+    if(this.#products.length == 0) return;
+    let foundIndex = this.#binarySearchForAProduct(code);
+    return this.#products[foundIndex];
   }
 
   delete(code) {
@@ -51,6 +54,19 @@ export default class Inventory {
       this.#products[i] = this.#products[i - 1];
     }
     this.#products[index] = product;
+  }
+
+  #binarySearchForAProduct( wantedCode, start = 0, end = this.#products.length - 1) {
+    if (wantedCode > this.#products[end].getCode || wantedCode < this.#products[start].getCode) return;
+    if (start > end) return;
+    let middle = Math.floor((start + end) / 2);
+    if (wantedCode === this.#products[middle].getCode) {
+      return middle;
+    } else if (wantedCode > this.#products[middle].getCode) {
+      return this.#binarySearchForAProduct(wantedCode, middle + 1, end);
+    } else {
+      return this.#binarySearchForAProduct(wantedCode, start, middle - 1);
+    }
   }
 
   #productsListToString(productsList = []) {
